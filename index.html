@@ -7,49 +7,53 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #161616;
-  --surface: #222;
-  --surface2: #2a2a2a;
-  --surface3: #333;
-  --border: rgba(255,255,255,0.08);
-  --orange: #f97316;
+  --bg: #161616; --surface: #222; --surface2: #2a2a2a; --surface3: #333;
+  --border: rgba(255,255,255,0.08); --orange: #f97316;
   --orange-dim: rgba(249,115,22,0.12);
-  --cement: #c4b49a;
-  --sand: #e2c47a;
-  --stone: #8fb5cc;
-  --muted: #666;
-  --muted2: #888;
-  --white: #f0ebe4;
-  --red: #ef4444;
-  --r: 4px;
+  --cement: #c4b49a; --sand: #e2c47a; --stone: #8fb5cc;
+  --muted: #666; --muted2: #888; --white: #f0ebe4; --red: #ef4444; --r: 4px;
+  --vn: #da251d;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  background: var(--bg);
-  color: var(--white);
+  background: var(--bg); color: var(--white);
   font-family: 'Noto Sans TC', sans-serif;
-  min-height: 100vh;
-  padding: 24px 16px 60px;
+  min-height: 100vh; padding: 24px 16px 60px;
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.015) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.015) 40px);
 }
 .wrapper { max-width: 640px; margin: 0 auto; }
 
+/* ── Header ── */
 header {
   display: flex; align-items: flex-end; gap: 16px;
   border-bottom: 2px solid var(--orange);
-  padding-bottom: 14px; margin-bottom: 24px;
+  padding-bottom: 14px; margin-bottom: 24px; position: relative;
 }
 .title { font-family: 'Bebas Neue'; font-size: 44px; line-height: 1; letter-spacing: 2px; }
-.header-right { display: flex; flex-direction: column; gap: 6px; }
+.header-right { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .sub { font-size: 10px; letter-spacing: 3px; color: var(--muted2); text-transform: uppercase; }
 .ratio-badge {
   background: var(--orange); color: #000;
   font-family: 'JetBrains Mono'; font-size: 11px; font-weight: 700;
-  padding: 3px 8px; border-radius: 2px; letter-spacing: 1px;
+  padding: 3px 8px; border-radius: 2px; letter-spacing: 1px; align-self: flex-start;
 }
 
+/* ── Lang toggle ── */
+.lang-wrap { position: absolute; right: 0; top: 0; display: flex; gap: 0; border-radius: var(--r); overflow: hidden; border: 1px solid var(--border); }
+.lang-btn {
+  background: var(--surface2); border: none; cursor: pointer;
+  font-size: 12px; font-weight: 700; padding: 5px 10px;
+  transition: all 0.15s; display: flex; align-items: center; gap: 5px;
+  color: var(--muted2); font-family: 'Noto Sans TC';
+  border-right: 1px solid var(--border);
+}
+.lang-btn:last-child { border-right: none; }
+.lang-btn.active { background: var(--surface3); color: var(--white); }
+.lang-btn .flag { font-size: 14px; }
+
+/* ── Sections ── */
 .sec-title {
   font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
   color: var(--muted2); margin-bottom: 12px;
@@ -57,20 +61,16 @@ header {
 }
 .sec-title::after { content:''; flex:1; height:1px; background: var(--border); }
 
-/* Entry */
+/* ── Entry ── */
 .entry {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  margin-bottom: 10px;
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r); margin-bottom: 10px; overflow: hidden;
   transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
 }
 .entry:hover { border-color: rgba(255,255,255,0.13); }
 .entry-head {
   display: flex; align-items: center; gap: 8px;
-  padding: 10px 12px;
-  background: var(--surface2);
+  padding: 10px 12px; background: var(--surface2);
   border-bottom: 1px solid var(--border);
 }
 .entry-num {
@@ -87,8 +87,7 @@ header {
 .shape-pills { display: flex; gap: 3px; flex-shrink: 0; }
 .pill {
   font-size: 11px; padding: 3px 9px; border-radius: 20px;
-  border: 1px solid var(--border);
-  background: transparent; color: var(--muted2);
+  border: 1px solid var(--border); background: transparent; color: var(--muted2);
   cursor: pointer; transition: all 0.12s; font-family: 'Noto Sans TC';
 }
 .pill.active { background: var(--surface3); color: var(--white); border-color: rgba(255,255,255,0.2); }
@@ -122,7 +121,7 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .unit-btn {
   background: transparent; border: none; color: var(--muted);
   font-family: 'JetBrains Mono'; font-size: 10px;
-  padding: 0 5px; cursor: pointer; transition: all 0.12s;
+  padding: 0 7px; cursor: pointer; transition: all 0.12s;
   border-right: 1px solid rgba(255,255,255,0.05);
 }
 .unit-btn:last-child { border-right: none; }
@@ -139,9 +138,8 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 
 .add-btn {
   width: 100%; background: transparent;
-  border: 1px dashed rgba(255,255,255,0.18);
-  border-radius: var(--r); color: var(--muted2);
-  padding: 12px; font-family: 'Noto Sans TC'; font-size: 13px;
+  border: 1px dashed rgba(255,255,255,0.18); border-radius: var(--r);
+  color: var(--muted2); padding: 12px; font-family: 'Noto Sans TC'; font-size: 13px;
   cursor: pointer; transition: all 0.15s; margin-bottom: 20px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
 }
@@ -156,9 +154,9 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 .calc-btn:hover { background: #fb923c; }
 .calc-btn:active { transform: scale(0.99); }
 
+/* ── Results ── */
 .results { display: none; }
 .results.show { display: block; }
-
 .total-vol {
   background: linear-gradient(135deg, var(--surface2), var(--surface));
   border: 1px solid var(--orange); border-radius: var(--r);
@@ -166,7 +164,6 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
   display: flex; justify-content: space-between; align-items: center;
 }
 .lbl { font-size: 10px; letter-spacing: 3px; color: var(--muted2); text-transform: uppercase; }
-.total-vol-num { font-family: 'Bebas Neue'; font-size: 52px; color: var(--orange); line-height: 1; }
 .total-vol-unit { font-size: 13px; color: var(--cement); }
 .entry-count { font-size: 11px; color: var(--muted2); margin-top: 4px; }
 .entry-count span { color: var(--white); font-weight: 700; }
@@ -179,14 +176,14 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 }
 .mat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
 .mat-card.cement::before { background: var(--cement); }
-.mat-card.sand::before { background: var(--sand); }
-.mat-card.stone::before { background: var(--stone); }
+.mat-card.sand::before   { background: var(--sand); }
+.mat-card.stone::before  { background: var(--stone); }
 .mat-icon { font-size: 20px; margin-bottom: 6px; display: block; }
 .mat-name { font-size: 10px; letter-spacing: 2px; color: var(--muted2); margin-bottom: 6px; }
 .mat-count { font-family: 'Bebas Neue'; font-size: 38px; line-height: 1; }
 .mat-card.cement .mat-count { color: var(--cement); }
-.mat-card.sand .mat-count { color: var(--sand); }
-.mat-card.stone .mat-count { color: var(--stone); }
+.mat-card.sand .mat-count   { color: var(--sand); }
+.mat-card.stone .mat-count  { color: var(--stone); }
 .mat-sub { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--muted2); margin-top: 2px; }
 
 .breakdown {
@@ -194,43 +191,36 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
   border-radius: var(--r); overflow: hidden; margin-bottom: 8px;
 }
 .breakdown-head, .breakdown-row, .breakdown-total {
-  display: grid;
-  grid-template-columns: 22px 1fr 70px 62px 62px 66px;
-  gap: 0; padding: 8px 12px; align-items: center;
+  display: grid; grid-template-columns: 22px 1fr 70px 62px 62px 66px;
+  padding: 8px 12px; align-items: center;
 }
 .breakdown-head {
   background: var(--surface2); border-bottom: 1px solid var(--border);
   font-size: 9px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
 }
-.breakdown-row {
-  border-bottom: 1px solid var(--border); font-size: 12px;
-  transition: background 0.1s;
-}
+.breakdown-row { border-bottom: 1px solid var(--border); font-size: 12px; transition: background 0.1s; }
 .breakdown-row:last-child { border-bottom: none; }
 .breakdown-row:hover { background: var(--surface2); }
-.breakdown-total {
-  background: var(--surface2); border-top: 1px solid rgba(249,115,22,0.25);
-}
+.breakdown-total { background: var(--surface2); border-top: 1px solid rgba(249,115,22,0.25); }
 .br-num { font-family: 'Bebas Neue'; font-size: 14px; color: var(--orange); }
 .br-shape { font-size: 9px; color: var(--muted2); display: inline-block; margin-left: 4px; }
 .br-vol { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--white); }
-.br-c  { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cement); }
-.br-s  { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--sand); }
-.br-st { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--stone); }
+.br-c   { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cement); }
+.br-s   { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--sand); }
+.br-st  { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--stone); }
 .bt-label { font-size: 10px; color: var(--muted2); letter-spacing: 1px; grid-column: 1/3; }
-.bt-val { font-family: 'Bebas Neue'; font-size: 16px; }
-.bt-vol { color: var(--orange); }
-.bt-c  { color: var(--cement); }
-.bt-s  { color: var(--sand); }
-.bt-st { color: var(--stone); }
+.bt-val   { font-family: 'Bebas Neue'; font-size: 16px; }
+.bt-vol   { color: var(--orange); }
+.bt-c     { color: var(--cement); }
+.bt-s     { color: var(--sand); }
+.bt-st    { color: var(--stone); }
 
 .ref-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 10px; letter-spacing: 1px; }
 .ref-note span { color: var(--orange); font-family: 'JetBrains Mono'; }
 
 .ratio-ref {
   display: flex; justify-content: center; gap: 6px; align-items: center;
-  margin-top: 20px; padding: 12px;
-  background: var(--surface); border-radius: var(--r);
+  margin-top: 20px; padding: 12px; background: var(--surface); border-radius: var(--r);
   font-family: 'JetBrains Mono'; font-size: 11px; color: var(--muted);
 }
 .r { padding: 4px 12px; border-radius: 2px; color: #000; font-weight: 700; font-size: 12px; }
@@ -243,86 +233,92 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
 <body>
 <div class="wrapper">
 
+<!-- Header -->
 <header>
-  <div class="title">混凝土<br>計算器</div>
+  <div class="title" id="titleText">混凝土<br>計算器</div>
   <div class="header-right">
-    <div class="sub">基礎座材料估算 · 多點加總</div>
-    <div class="ratio-badge">水泥 1 : 沙 2 : 石頭 3</div>
+    <div class="sub" id="subText">基礎座材料估算 · 多點加總</div>
+    <div class="ratio-badge" id="ratioText">水泥 1 : 沙 2 : 石頭 3</div>
+  </div>
+  <div class="lang-wrap">
+    <button class="lang-btn active" id="btnZh" onclick="setLang('zh')">
+      <span class="flag">🇹🇼</span> 中文
+    </button>
+    <button class="lang-btn" id="btnVi" onclick="setLang('vi')">
+      <span class="flag">🇻🇳</span> Tiếng Việt
+    </button>
   </div>
 </header>
 
-<div class="sec-title">基礎座清單</div>
+<div class="sec-title" id="secList">基礎座清單</div>
 <div id="entryList"></div>
 
-<button class="add-btn" onclick="addEntry()">
-  <span style="font-size:18px;line-height:1">＋</span> 新增基礎座
+<button class="add-btn" id="addBtn" onclick="addEntry()">
+  <span style="font-size:18px;line-height:1">＋</span>
+  <span id="addBtnText">新增基礎座</span>
 </button>
 
-<button class="calc-btn" onclick="calculate()">▶ 計算全部材料</button>
+<button class="calc-btn" id="calcBtn" onclick="calculate()">▶ 計算全部材料</button>
 
+<!-- Results -->
 <div class="results" id="results">
-  <div class="sec-title">計算結果</div>
+  <div class="sec-title" id="secResult">計算結果</div>
 
   <div class="total-vol">
     <div>
-      <div class="lbl">總體積（可手動調整）</div>
+      <div class="lbl" id="totalVolLbl">總體積（可手動調整）</div>
       <div style="display:flex;align-items:baseline;gap:6px;margin-top:2px">
         <input type="number" id="totalVolInput" step="0.001" min="0"
-          style="
-            background:transparent;border:none;outline:none;
-            font-family:'Bebas Neue';font-size:52px;color:var(--orange);
-            line-height:1;width:140px;padding:0;
-            border-bottom:2px dashed rgba(249,115,22,0.4);
-            -moz-appearance:textfield;
-          "
-          oninput="updateTotalsFromVol(this.value)"
-          placeholder="0">
+          style="background:transparent;border:none;outline:none;font-family:'Bebas Neue';font-size:52px;color:var(--orange);line-height:1;width:150px;padding:0;border-bottom:2px dashed rgba(249,115,22,0.4);-moz-appearance:textfield;"
+          oninput="updateTotalsFromVol(this.value)" placeholder="0">
         <div class="total-vol-unit">m³</div>
       </div>
-      <div class="entry-count">共 <span id="entryCountTxt">0</span> 個基礎座　
-        <span id="calcVolHint" style="color:var(--muted);font-size:10px"></span>
+      <div class="entry-count">
+        <span id="entryCountTxt">0</span>
+        <span id="entryCountSuffix"> 個基礎座</span>
+        &nbsp;<span id="calcVolHint" style="color:var(--muted);font-size:10px"></span>
       </div>
     </div>
     <div style="text-align:right;line-height:1.8">
-      <div class="lbl" style="margin-bottom:6px">各項合計</div>
-      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--cement)">水泥 <span id="hintC" style="font-size:14px;font-family:'Bebas Neue'">—</span> 包</div>
-      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--sand)">沙 <span id="hintS" style="font-size:14px;font-family:'Bebas Neue'">—</span> 包</div>
-      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--stone)">石頭 <span id="hintSt" style="font-size:14px;font-family:'Bebas Neue'">—</span> 包</div>
+      <div class="lbl" id="eachTotalLbl" style="margin-bottom:6px">各項合計</div>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--cement)" id="hintCRow">水泥 <span id="hintC" style="font-size:14px;font-family:'Bebas Neue'">—</span> <span id="hintCUnit">包</span></div>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--sand)"   id="hintSRow">沙 <span id="hintS" style="font-size:14px;font-family:'Bebas Neue'">—</span> <span id="hintSUnit">包</span></div>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:var(--stone)"  id="hintStRow">石頭 <span id="hintSt" style="font-size:14px;font-family:'Bebas Neue'">—</span> <span id="hintStUnit">包</span></div>
     </div>
   </div>
 
   <div class="mat-grid">
     <div class="mat-card cement">
       <span class="mat-icon">🏭</span>
-      <div class="mat-name">水　泥</div>
+      <div class="mat-name" id="matCement">水　泥</div>
       <div class="mat-count" id="totalCement">0</div>
-      <div class="mat-sub">包</div>
+      <div class="mat-sub" id="matCementUnit">包</div>
     </div>
     <div class="mat-card sand">
       <span class="mat-icon">🏜️</span>
-      <div class="mat-name">砂　礫</div>
+      <div class="mat-name" id="matSand">砂　礫</div>
       <div class="mat-count" id="totalSand">0</div>
-      <div class="mat-sub">包</div>
+      <div class="mat-sub" id="matSandUnit">包</div>
     </div>
     <div class="mat-card stone">
       <span class="mat-icon">🪨</span>
-      <div class="mat-name">碎　石</div>
+      <div class="mat-name" id="matStone">碎　石</div>
       <div class="mat-count" id="totalStone">0</div>
-      <div class="mat-sub">包</div>
+      <div class="mat-sub" id="matStoneUnit">包</div>
     </div>
   </div>
 
   <div class="breakdown">
-    <div class="breakdown-head">
-      <div>#</div><div>名稱</div>
-      <div>體積(m³)</div>
-      <div style="color:var(--cement)">水泥</div>
-      <div style="color:var(--sand)">沙</div>
-      <div style="color:var(--stone)">石頭(包)</div>
+    <div class="breakdown-head" id="breakdownHead">
+      <div>#</div><div id="colName">名稱</div>
+      <div id="colVol">體積(m³)</div>
+      <div style="color:var(--cement)" id="colC">水泥(包)</div>
+      <div style="color:var(--sand)"   id="colS">沙(包)</div>
+      <div style="color:var(--stone)"  id="colSt">石頭(包)</div>
     </div>
     <div id="breakdownBody"></div>
     <div class="breakdown-total">
-      <div class="bt-label">合　計</div>
+      <div class="bt-label" id="totalLabel">合　計</div>
       <div class="bt-val bt-vol" id="btVol">-</div>
       <div class="bt-val bt-c"  id="btC">-</div>
       <div class="bt-val bt-s"  id="btS">-</div>
@@ -330,25 +326,151 @@ input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
     </div>
   </div>
 
-  <div class="ref-note">每 1m³ → 水泥 <span>3.33</span> 包 ／ 沙 <span>9.3</span> 包 ／ 石頭 <span>14</span> 包</div>
+  <div class="ref-note" id="refNote">每 1m³ → 水泥 <span>3.33</span> 包 ／ 沙 <span>9.3</span> 包 ／ 石頭 <span>14</span> 包</div>
 </div>
 
 <div class="ratio-ref">
-  配合比例
-  <div class="r rc">水泥 ×1</div><span class="sep">:</span>
-  <div class="r rs">沙 ×2</div><span class="sep">:</span>
-  <div class="r rst">石頭 ×3</div>
+  <span id="ratioLabel">配合比例</span>
+  <div class="r rc" id="ratioC">水泥 ×1</div><span class="sep">:</span>
+  <div class="r rs" id="ratioS">沙 ×2</div><span class="sep">:</span>
+  <div class="r rst" id="ratioSt">石頭 ×3</div>
 </div>
 
-</div>
+</div><!-- .wrapper -->
+
 <script>
+/* ═══════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════ */
+const T = {
+  zh: {
+    title: '混凝土<br>計算器',
+    sub: '基礎座材料估算 · 多點加總',
+    ratio: '水泥 1 : 沙 2 : 石頭 3',
+    secList: '基礎座清單',
+    addBtn: '新增基礎座',
+    calcBtn: '▶ 計算全部材料',
+    secResult: '計算結果',
+    totalVolLbl: '總體積（可手動調整）',
+    entryCountSuffix: ' 個基礎座',
+    eachTotalLbl: '各項合計',
+    hintCLabel: '水泥', hintSLabel: '沙', hintStLabel: '石頭',
+    bagUnit: '包',
+    matCement: '水　泥', matSand: '砂　礫', matStone: '碎　石',
+    colName: '名稱', colVol: '體積(m³)', colC: '水泥(包)', colS: '沙(包)', colSt: '石頭(包)',
+    totalLabel: '合　計',
+    refNote: '每 1m³ → 水泥 <span>3.33</span> 包 ／ 沙 <span>9.3</span> 包 ／ 石頭 <span>14</span> 包',
+    ratioLabel: '配合比例',
+    ratioC: '水泥 ×1', ratioS: '沙 ×2', ratioSt: '石頭 ×3',
+    calcHintPrefix: '計算值：',
+    namePlaceholder: '名稱（選填）',
+    shapeRect: '方形', shapeTrap: '梯形',
+    labelLen: '長度', labelWid: '寬度', labelH: '高度',
+    labelLong: '長邊', labelShort: '短邊',
+    volLabel: '體積預估',
+    volPrompt: '請填入所有尺寸',
+    dupTitle: '複製此筆', delTitle: '刪除',
+    dupSuffix: ' (複製)',
+    alertNoEntry: '請先新增基礎座',
+    alertInvalid: (name) => `「${name}」尺寸未填完整，請檢查`,
+    shapeLabel: { rect: '方', trap: '梯' },
+  },
+  vi: {
+    title: 'Máy Tính<br>Bê Tông',
+    sub: 'Ước Tính Vật Liệu Móng · Tổng Hợp',
+    ratio: 'Xi Măng 1 : Cát 2 : Đá 3',
+    secList: 'Danh Sách Móng',
+    addBtn: 'Thêm Móng Mới',
+    calcBtn: '▶ Tính Tất Cả Vật Liệu',
+    secResult: 'Kết Quả Tính Toán',
+    totalVolLbl: 'Tổng Thể Tích (Có Thể Điều Chỉnh)',
+    entryCountSuffix: ' móng',
+    eachTotalLbl: 'Tổng Mỗi Loại',
+    hintCLabel: 'Xi Măng', hintSLabel: 'Cát', hintStLabel: 'Đá',
+    bagUnit: 'bao',
+    matCement: 'Xi Măng', matSand: 'Cát', matStone: 'Đá Dăm',
+    colName: 'Tên', colVol: 'Thể Tích(m³)', colC: 'Xi Măng', colS: 'Cát', colSt: 'Đá(bao)',
+    totalLabel: 'Tổng',
+    refNote: 'Mỗi 1m³ → Xi Măng <span>3.33</span> bao ／ Cát <span>9.3</span> bao ／ Đá <span>14</span> bao',
+    ratioLabel: 'Tỷ Lệ',
+    ratioC: 'Xi Măng ×1', ratioS: 'Cát ×2', ratioSt: 'Đá ×3',
+    calcHintPrefix: 'Tính được: ',
+    namePlaceholder: 'Tên (Tùy Chọn)',
+    shapeRect: 'Chữ Nhật', shapeTrap: 'Hình Thang',
+    labelLen: 'Dài', labelWid: 'Rộng', labelH: 'Cao',
+    labelLong: 'Cạnh Dài', labelShort: 'Cạnh Ngắn',
+    volLabel: 'Ước Tính TT',
+    volPrompt: 'Vui lòng nhập kích thước',
+    dupTitle: 'Sao Chép', delTitle: 'Xóa',
+    dupSuffix: ' (Sao Chép)',
+    alertNoEntry: 'Vui lòng thêm móng trước',
+    alertInvalid: (name) => `「${name}」chưa điền đủ kích thước`,
+    shapeLabel: { rect: 'CN', trap: 'HT' },
+  }
+};
+
+let lang = 'zh';
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btnZh').classList.toggle('active', l === 'zh');
+  document.getElementById('btnVi').classList.toggle('active', l === 'vi');
+  applyTranslations();
+  // re-render all entries to update labels
+  entries.forEach(e => renderEntryHTML(e));
+}
+
+function t(key) { return T[lang][key]; }
+
+function applyTranslations() {
+  const L = T[lang];
+  document.getElementById('titleText').innerHTML     = L.title;
+  document.getElementById('subText').textContent     = L.sub;
+  document.getElementById('ratioText').textContent   = L.ratio;
+  document.getElementById('secList').textContent     = L.secList;
+  document.getElementById('addBtnText').textContent  = L.addBtn;
+  document.getElementById('calcBtn').textContent     = L.calcBtn;
+  document.getElementById('secResult').textContent   = L.secResult;
+  document.getElementById('totalVolLbl').textContent = L.totalVolLbl;
+  document.getElementById('entryCountSuffix').textContent = L.entryCountSuffix;
+  document.getElementById('eachTotalLbl').textContent = L.eachTotalLbl;
+  // hint labels
+  document.getElementById('hintCRow').childNodes[0].textContent  = L.hintCLabel + ' ';
+  document.getElementById('hintSRow').childNodes[0].textContent  = L.hintSLabel + ' ';
+  document.getElementById('hintStRow').childNodes[0].textContent = L.hintStLabel + ' ';
+  document.getElementById('hintCUnit').textContent  = L.bagUnit;
+  document.getElementById('hintSUnit').textContent  = L.bagUnit;
+  document.getElementById('hintStUnit').textContent = L.bagUnit;
+  // mat cards
+  document.getElementById('matCement').textContent    = L.matCement;
+  document.getElementById('matSand').textContent      = L.matSand;
+  document.getElementById('matStone').textContent     = L.matStone;
+  document.getElementById('matCementUnit').textContent = L.bagUnit;
+  document.getElementById('matSandUnit').textContent   = L.bagUnit;
+  document.getElementById('matStoneUnit').textContent  = L.bagUnit;
+  // breakdown header
+  document.getElementById('colName').textContent  = L.colName;
+  document.getElementById('colVol').textContent   = L.colVol;
+  document.getElementById('colC').textContent     = L.colC;
+  document.getElementById('colS').textContent     = L.colS;
+  document.getElementById('colSt').textContent    = L.colSt;
+  document.getElementById('totalLabel').textContent = L.totalLabel;
+  document.getElementById('refNote').innerHTML    = L.refNote;
+  document.getElementById('ratioLabel').textContent = L.ratioLabel;
+  document.getElementById('ratioC').textContent   = L.ratioC;
+  document.getElementById('ratioS').textContent   = L.ratioS;
+  document.getElementById('ratioSt').textContent  = L.ratioSt;
+}
+
+/* ═══════════════════════════════════════
+   CALCULATOR LOGIC
+═══════════════════════════════════════ */
 const PER = { cement: 3.33, sand: 9.3, stone: 14 };
 let uid = 0;
 const entries = [];
 
 function toM(val, unit) {
-  if (unit === 'cm') return val / 100;
-  return val;
+  return unit === 'cm' ? val / 100 : val;
 }
 function f(n) { return parseFloat(n.toFixed(4)).toString(); }
 function ceil1(n) { return Math.ceil(n * 10) / 10; }
@@ -359,15 +481,13 @@ function calcVolume(entry) {
     const L = toM(+d[0].val, d[0].unit);
     const W = toM(+d[1].val, d[1].unit);
     const H = toM(+d[2].val, d[2].unit);
-    const vol = L * W * H;
-    return { vol, formula: `${f(L)} × ${f(W)} × ${f(H)}` };
+    return { vol: L * W * H, formula: `${f(L)} × ${f(W)} × ${f(H)}` };
   } else {
     const Lo = toM(+d[0].val, d[0].unit);
     const Sh = toM(+d[1].val, d[1].unit);
     const H  = toM(+d[2].val, d[2].unit);
     const avg = (Lo + Sh) / 2;
-    const vol = avg * H;
-    return { vol, formula: `(${f(Lo)}+${f(Sh)})÷2 × ${f(H)}` };
+    return { vol: avg * H, formula: `(${f(Lo)}+${f(Sh)})÷2 × ${f(H)}` };
   }
 }
 
@@ -377,20 +497,18 @@ function allFilled(entry) {
 
 function addEntry() {
   uid++;
+  const L = T[lang];
   const entry = {
     id: uid, shape: 'rect',
-    name: `基礎座 ${uid}`,
-    dims: [
-      { val: '', unit: 'm' },
-      { val: '', unit: 'cm' },
-      { val: '', unit: 'cm' },
-    ]
+    name: `${L.secList.replace(/[^a-zA-Z\u4e00-\u9fff]/g,'')||'Móng'} ${uid}`,
+    dims: [{ val:'',unit:'m' },{ val:'',unit:'cm' },{ val:'',unit:'cm' }]
   };
+  // simpler default name
+  entry.name = lang === 'vi' ? `Móng ${uid}` : `基礎座 ${uid}`;
   entries.push(entry);
   const list = document.getElementById('entryList');
   const el = document.createElement('div');
-  el.className = 'entry';
-  el.id = `entry-${uid}`;
+  el.className = 'entry'; el.id = `entry-${uid}`;
   list.appendChild(el);
   renderEntryHTML(entry);
   document.getElementById('results').classList.remove('show');
@@ -398,8 +516,12 @@ function addEntry() {
 
 function renderEntryHTML(entry) {
   const el = document.getElementById(`entry-${entry.id}`);
+  if (!el) return;
   const id = entry.id;
-  const labels = entry.shape === 'rect' ? ['長度','寬度','高度'] : ['長邊','短邊','高度'];
+  const L = T[lang];
+  const labels = entry.shape === 'rect'
+    ? [L.labelLen, L.labelWid, L.labelH]
+    : [L.labelLong, L.labelShort, L.labelH];
 
   const fieldsHTML = labels.map((lbl, i) => `
     <div class="field">
@@ -420,21 +542,21 @@ function renderEntryHTML(entry) {
   el.innerHTML = `
     <div class="entry-head">
       <div class="entry-num">${id}</div>
-      <input class="name-input" placeholder="名稱（選填）" value="${entry.name}"
+      <input class="name-input" placeholder="${L.namePlaceholder}" value="${entry.name}"
         oninput="entries.find(e=>e.id===${id}).name=this.value">
       <div class="shape-pills">
-        <button class="pill ${entry.shape==='rect'?'active':''}" onclick="changeShape(${id},'rect')">方形</button>
-        <button class="pill ${entry.shape==='trap'?'active':''}" onclick="changeShape(${id},'trap')">梯形</button>
+        <button class="pill ${entry.shape==='rect'?'active':''}" onclick="changeShape(${id},'rect')">${L.shapeRect}</button>
+        <button class="pill ${entry.shape==='trap'?'active':''}" onclick="changeShape(${id},'trap')">${L.shapeTrap}</button>
       </div>
-      <button class="del-btn dup-btn" style="color:var(--muted2)" title="複製此筆" onclick="duplicateEntry(${id})">⎘</button>
-      <button class="del-btn" onclick="deleteEntry(${id})" title="刪除">✕</button>
+      <button class="del-btn dup-btn" style="color:var(--muted2)" title="${L.dupTitle}" onclick="duplicateEntry(${id})">⎘</button>
+      <button class="del-btn" title="${L.delTitle}" onclick="deleteEntry(${id})">✕</button>
     </div>
     <div class="entry-body">
       <div class="fields">${fieldsHTML}</div>
       <div class="entry-vol">
         <div>
-          <div class="entry-vol-label">體積預估</div>
-          <div class="entry-vol-formula" id="formula-${id}">請填入所有尺寸</div>
+          <div class="entry-vol-label">${L.volLabel}</div>
+          <div class="entry-vol-formula" id="formula-${id}">${L.volPrompt}</div>
         </div>
         <div class="entry-vol-num" id="volnum-${id}">— m³</div>
       </div>
@@ -445,7 +567,7 @@ function renderEntryHTML(entry) {
 function onDimVal(id, i, val) {
   const entry = entries.find(e => e.id === id);
   if (!entry) return;
-  entry.dims[i].val = val === '' ? '' : val;
+  entry.dims[i].val = val;
   updatePreview(entry);
 }
 
@@ -453,9 +575,8 @@ function onDimUnit(id, i, unit, btn) {
   const entry = entries.find(e => e.id === id);
   if (!entry) return;
   entry.dims[i].unit = unit;
-  // update button styles only
-  const btns = btn.closest('.unit-toggle').querySelectorAll('.unit-btn');
-  btns.forEach(b => b.classList.toggle('active', b.textContent === unit));
+  btn.closest('.unit-toggle').querySelectorAll('.unit-btn')
+    .forEach(b => b.classList.toggle('active', b.textContent === unit));
   updatePreview(entry);
 }
 
@@ -471,10 +592,9 @@ function updatePreview(entry) {
   const vEl = document.getElementById(`volnum-${id}`);
   const fEl = document.getElementById(`formula-${id}`);
   if (!vEl || !fEl) return;
+  const L = T[lang];
   if (!allFilled(entry)) {
-    vEl.textContent = '— m³';
-    fEl.textContent = '請填入所有尺寸';
-    return;
+    vEl.textContent = '— m³'; fEl.textContent = L.volPrompt; return;
   }
   const { vol, formula } = calcVolume(entry);
   vEl.textContent = `${vol.toFixed(3)} m³`;
@@ -486,23 +606,18 @@ function duplicateEntry(id) {
   if (!src) return;
   uid++;
   const copy = {
-    id: uid,
-    shape: src.shape,
-    name: src.name + ' (複製)',
+    id: uid, shape: src.shape,
+    name: src.name + T[lang].dupSuffix,
     dims: src.dims.map(d => ({ val: d.val, unit: d.unit }))
   };
   entries.push(copy);
-  const list = document.getElementById('entryList');
   const srcEl = document.getElementById(`entry-${id}`);
   const el = document.createElement('div');
-  el.className = 'entry';
-  el.id = `entry-${uid}`;
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(-6px)';
-  el.style.transition = 'all 0.2s';
+  el.className = 'entry'; el.id = `entry-${uid}`;
+  el.style.cssText = 'opacity:0;transform:translateY(-6px);transition:all 0.2s';
   srcEl.insertAdjacentElement('afterend', el);
   renderEntryHTML(copy);
-  requestAnimationFrame(() => { el.style.opacity = '1'; el.style.transform = 'none'; });
+  requestAnimationFrame(() => { el.style.opacity='1'; el.style.transform='none'; });
   document.getElementById('results').classList.remove('show');
 }
 
@@ -511,40 +626,33 @@ function deleteEntry(id) {
   if (idx > -1) entries.splice(idx, 1);
   const el = document.getElementById(`entry-${id}`);
   if (el) {
-    el.style.opacity = '0'; el.style.transform = 'translateX(12px)';
-    el.style.transition = 'all 0.18s';
+    el.style.cssText = 'opacity:0;transform:translateX(12px);transition:all 0.18s';
     setTimeout(() => el.remove(), 200);
   }
   document.getElementById('results').classList.remove('show');
 }
 
 function calculate() {
-  if (entries.length === 0) { alert('請先新增基礎座'); return; }
+  const L = T[lang];
+  if (entries.length === 0) { alert(L.alertNoEntry); return; }
   for (const e of entries) {
-    if (!allFilled(e)) { alert(`「${e.name}」尺寸未填完整，請檢查`); return; }
+    if (!allFilled(e)) { alert(L.alertInvalid(e.name)); return; }
   }
 
   const rows = [];
   let totalVol = 0;
   for (const entry of entries) {
     const { vol, formula } = calcVolume(entry);
-    const c = ceil1(vol * PER.cement);
-    const s = ceil1(vol * PER.sand);
+    const c  = ceil1(vol * PER.cement);
+    const s  = ceil1(vol * PER.sand);
     const st = ceil1(vol * PER.stone);
     totalVol += vol;
     rows.push({ entry, vol, formula, c, s, st });
   }
 
-  const totalC  = Math.round(totalVol * PER.cement);
-  const totalS  = Math.round(totalVol * PER.sand);
-  const totalSt = Math.round(totalVol * PER.stone);
-
-  // set the editable volume field (calculated base value)
   const volInput = document.getElementById('totalVolInput');
   volInput.value = totalVol.toFixed(3);
-  volInput.dataset.base = totalVol.toFixed(3);
-  document.getElementById('calcVolHint').textContent = `計算值：${totalVol.toFixed(3)} m³`;
-
+  document.getElementById('calcVolHint').textContent = L.calcHintPrefix + totalVol.toFixed(3) + ' m³';
   document.getElementById('entryCountTxt').textContent = entries.length;
   updateTotalsFromVol(totalVol);
 
@@ -553,7 +661,7 @@ function calculate() {
       <div class="br-num">${r.entry.id}</div>
       <div>
         <span style="font-size:12px">${r.entry.name}</span>
-        <span class="br-shape">${r.entry.shape==='rect'?'方':'梯'}</span>
+        <span class="br-shape">${T[lang].shapeLabel[r.entry.shape]}</span>
       </div>
       <div class="br-vol">${r.vol.toFixed(3)}</div>
       <div class="br-c">${r.c}</div>
@@ -568,7 +676,7 @@ function calculate() {
 
   const r = document.getElementById('results');
   r.classList.add('show');
-  setTimeout(() => r.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  setTimeout(() => r.scrollIntoView({ behavior:'smooth', block:'start' }), 50);
 }
 
 function updateTotalsFromVol(vol) {
@@ -577,19 +685,19 @@ function updateTotalsFromVol(vol) {
   const c  = Math.round(v * PER.cement);
   const s  = Math.round(v * PER.sand);
   const st = Math.round(v * PER.stone);
-  document.getElementById('hintC').textContent  = c;
-  document.getElementById('hintS').textContent  = s;
-  document.getElementById('hintSt').textContent = st;
+  document.getElementById('hintC').textContent   = c;
+  document.getElementById('hintS').textContent   = s;
+  document.getElementById('hintSt').textContent  = st;
   document.getElementById('totalCement').textContent = c;
   document.getElementById('totalSand').textContent   = s;
   document.getElementById('totalStone').textContent  = st;
-  // also update breakdown total row
   document.getElementById('btVol').textContent = v.toFixed(3);
   document.getElementById('btC').textContent   = c;
   document.getElementById('btS').textContent   = s;
   document.getElementById('btSt').textContent  = st;
 }
 
+// Init
 addEntry();
 </script>
 </body>
